@@ -1,11 +1,12 @@
 import asyncio
+import os
 import discord
 from discord.ext import commands
 import traceback
 from discord import ui, app_commands
 import random
 
-TOKEN = BOT_TOKEN
+TOKEN = os.environ.get("BOT_TOKEN")
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=intents)
 tree = bot.tree
