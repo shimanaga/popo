@@ -1,1 +1,1 @@
-discordbot: python ena.py
+worker: python ena.py
