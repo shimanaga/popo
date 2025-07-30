@@ -9,11 +9,11 @@ TOKEN = BOT_TOKEN
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=intents)
 tree = bot.tree
-MAIN_GUILD = bot.get_guild(MAIN_GUILD_ID)
+MAIN_GUILD = bot.get_guild(1400145776381919272)
 
 @tree.command(name="gacha", guild=MAIN_GUILD, description="10連ガチャを回します。")
 async def gacha(interaction: discord.Interaction):
-    if interaction.channel_id != 1400194814624141392:
+    if interaction.channel_id != 1400194814624141392 or interaction.channel_id != 1048878265168842792:
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
     XXR = ["ボブ", "ジム", "えな"]
