@@ -1,9 +1,9 @@
 import asyncio
-import os
+import traceback
 import discord
 from discord.ext import commands
-import traceback
 from discord import ui, app_commands
+import os
 import random
 
 TOKEN = os.environ.get("BOT_TOKEN")
@@ -12,16 +12,18 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=inten
 tree = bot.tree
 MAIN_GUILD = bot.get_guild(1400145776381919272)
 
+admin_id = [447551013763678208]
+
 @tree.command(name="gacha", guild=MAIN_GUILD, description="10連ガチャを回します。")
 async def gacha(interaction: discord.Interaction):
     if interaction.channel_id != 1400194814624141392 and interaction.channel_id != 1048878265168842792:
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
     XXR = ["ボブ", "ジム", "えな"]
-    SSR = ["ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし"]
+    SSR = ["ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし", "ダイナマイトボディエナガ"]
     SR = ["田中 オイ太郎", "歩きエナガ", "ヒトデマン", "メスガキ", "ムキムキエナガ", "プリン", "ずんちゃ", "お寿司（サーモン）", "高速黙りモード移行男"]
     R = ["オフロスキー", "栗きんとん", "カニンジャ", "ラーメン", "ぐんぐんグルト", "強奪王ブンドルド", "立つドン", "デカハリル", "作品4", "ツャツャエナガ"]
-    N = ["キウイマン", "舞う！！！！馬", "マイバチ（1本）", "たこ焼き", "ミ=ゴス", "ポッピンクッキン ホイップケーキやさん", "縦連", "オタマトーン", "3ヶ月目のカレー", "パピコ", "お寿司（たまご）", "肩幅うさぎ", "ネギ", "15円玉", "雪降り、メソクソ", "イーロン・マスク", "アメリカセンダングサ", "Dutedimpianekepusaan-分散的絶望夢-", "判定線抱き枕"]
+    N = ["キウイマン", "舞う！！！！馬", "マイバチ（1本）", "たこ焼き", "ミ＝ゴス", "ポッピンクッキン ホイップケーキやさん", "縦連", "オタマトーン", "3ヶ月目のカレー", "パピコ", "お寿司（たまご）", "肩幅うさぎ", "ネギ", "15円玉", "雪降り、メソクソ", "イーロン・マスク", "アメリカセンダングサ","醤油", "Dutedimpianekepusaan-分散的絶望夢-", "判定線抱き枕"]
     result = "## ガチャ結果\n"
     for i in range(10):
         f = random.randint(0, 100)
