@@ -39,6 +39,48 @@ async def gacha(interaction: discord.Interaction):
             result += "[N] " + random.choice(N) + "\n"
     await interaction.response.send_message(result)
 
+@tree.command(name="ieo", guild=MAIN_GUILD, description="インエナガチャを回します。")
+@tree.describe(n='試行回数を指定してください。')
+async def ieo(interaction: discord.Interaction, n: int):
+    if n < 1 or n > 10000:
+        await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
+        return
+    TARGET = "INFiNiTE ENERZY -Overdoze-"
+    PARTS = ["INFiNiTE", "ENERZY", "-Overdoze-"]
+    OUTPUT_FILE = "ieo_log.txt"
+    log = []
+    max_similarity = -1
+    closest_string = ""
+    closest_index = -1
+
+    for i in range(1, tries + 1):
+        shuffled_parts = []
+        for part in PARTS:
+            if part == "-Overdoze-":
+                middle = part[1:-1]
+                shuffled = "-" + ''.join(random.sample(middle, len(middle))) + "-"
+            else:
+                shuffled = ''.join(random.sample(part, len(part)))
+            shuffled_parts.append(shuffled)
+
+        result = ' '.join(shuffled_parts)
+        log.append(result)
+        if result == TARGET:
+            with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+                for line in log:
+                    f.write(line + "\n")
+            await interaction.response.send_message(f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！",file=discord.File(OUTPUT_FILE))
+            return
+        similarity = sum(result[j] == TARGET[j] for j in range(len(TARGET)))
+        if similarity > max_similarity:
+            max_similarity = similarity
+            closest_string = result
+            closest_index = i
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        for line in log:
+            f.write(line + "\n")
+    await interaction.response.send_message(f"{tries}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。",file=discord.File(OUTPUT_FILE))
+
 @bot.command()
 async def s(ctx: commands.context):
     if not ctx.author.id in admin_id:
