@@ -54,7 +54,7 @@ async def ieo(interaction: discord.Interaction, n: int):
     closest_string = ""
     closest_index = -1
 
-    for i in range(1, tries + 1):
+    for i in range(1, n + 1):
         shuffled_parts = []
         for part in PARTS:
             if part == "-Overdoze-":
