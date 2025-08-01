@@ -3,6 +3,7 @@ import traceback
 import discord
 from discord.ext import commands
 from discord import ui, app_commands
+from discord.app_commands import describe
 import os
 import random
 
@@ -40,7 +41,7 @@ async def gacha(interaction: discord.Interaction):
     await interaction.response.send_message(result)
 
 @tree.command(name="ieo", guild=MAIN_GUILD, description="インエナガチャを回します。")
-@tree.describe(n='試行回数を指定してください。')
+@describe(n='試行回数を指定してください。')
 async def ieo(interaction: discord.Interaction, n: int):
     if n < 1 or n > 10000:
         await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
