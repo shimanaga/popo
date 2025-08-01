@@ -43,6 +43,9 @@ async def gacha(interaction: discord.Interaction):
 @tree.command(name="ieo", guild=MAIN_GUILD, description="インエナガチャを回します。")
 @describe(n='試行回数を指定してください。')
 async def ieo(interaction: discord.Interaction, n: int):
+    if interaction.channel_id != 1400194814624141392 and interaction.channel_id != 1048878265168842792:
+        await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
+        return
     if n < 1 or n > 10000:
         await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
         return
@@ -80,7 +83,7 @@ async def ieo(interaction: discord.Interaction, n: int):
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         for line in log:
             f.write(line + "\n")
-    await interaction.response.send_message(f"{tries}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。",file=discord.File(OUTPUT_FILE))
+    await interaction.response.send_message(f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。",file=discord.File(OUTPUT_FILE))
 
 @bot.command()
 async def s(ctx: commands.context):
