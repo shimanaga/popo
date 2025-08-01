@@ -47,8 +47,11 @@ async def ieo(interaction: discord.Interaction, n: int):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
     if n < 1 or n > 10000:
-        await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
-        return
+        if interaction.user.id in admin_id and n <= 100000:
+            pass
+        else:
+            await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
+            return
     TARGET = "INFiNiTE ENERZY -Overdoze-"
     PARTS = ["INFiNiTE", "ENERZY", "-Overdoze-"]
     OUTPUT_FILE = "ieo_log.txt"
