@@ -106,7 +106,7 @@ async def ieo(interaction: discord.Interaction, n: int):
     total_length = sum(closest_group_lengths)
     total_mismatch = total_length - total_match
     total_rate = total_match / total_length * 100
-    await interaction.response.send_message(f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。\n一致数: {' | '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})",file=discord.File(OUTPUT_FILE))
+    await interaction.response.send_message(f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。\n```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```",file=discord.File(OUTPUT_FILE))
 
 @bot.command()
 async def s(ctx: commands.context):
