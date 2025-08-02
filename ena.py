@@ -78,7 +78,7 @@ async def ieo(interaction: discord.Interaction, n: int):
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 for line in log:
                     f.write(line + "\n")
-            await interaction.response.send_message(f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！",file=discord.File(OUTPUT_FILE))
+            await interaction.response.send_message(f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```",file=discord.File(OUTPUT_FILE))
             return
         similarity = sum(result[j] == TARGET[j] for j in range(len(TARGET)))
         if similarity > max_similarity:
