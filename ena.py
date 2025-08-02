@@ -90,8 +90,8 @@ async def ieo(interaction: discord.Interaction, n: int):
             closest_match_counts = []
             closest_group_lengths = []
             for idx in range(3):
-                target = target_parts[idx]
-                res = result_parts[idx]
+                target = target_parts[idx] if idx != 2 else target_parts[idx][1:-1]
+                res = result_parts[idx] if idx != 2 else result_parts[idx][1:-1]
                 match_count = sum(1 for a, b in zip(target, res) if a == b)
                 closest_match_counts.append(match_count)
                 closest_group_lengths.append(len(target))
