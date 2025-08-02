@@ -46,11 +46,11 @@ async def ieo(interaction: discord.Interaction, n: int):
     if interaction.channel_id != 1400194814624141392 and interaction.channel_id != 1048878265168842792:
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
-    if n < 1 or n > 10000:
-        if interaction.user.id in admin_id and n <= 100000:
+    if n < 1 or n > 30000:
+        if interaction.user.id in admin_id and n <= 500000:
             pass
         else:
-            await interaction.response.send_message("試行回数は1回から10000回までで指定してください。", ephemeral=True)
+            await interaction.response.send_message("試行回数は1回から30000回までで指定してください。", ephemeral=True)
             return
     TARGET = "INFiNiTE ENERZY -Overdoze-"
     PARTS = ["INFiNiTE", "ENERZY", "-Overdoze-"]
