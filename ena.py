@@ -116,6 +116,68 @@ async def s(ctx: commands.context):
     await interaction.response.send_message("強制終了します。", ephemeral = True)
     await bot.close()
 
+@bot.command()
+async def ieo(ctx: commands.context, n):
+    async with message.channel.typing():
+        n = int(n)
+        if not ctx.author.id in admin_id:
+            return
+        TARGET = "INFiNiTE ENERZY -Overdoze-"
+        PARTS = ["INFiNiTE", "ENERZY", "-Overdoze-"]
+        OUTPUT_FILE = "ieo_log.txt"
+        log = []
+        max_similarity = -1
+        closest_string = ""
+        closest_index = -1
+        closest_match_counts = []
+        closest_group_lengths = []
+        
+        for i in range(1, n + 1):
+            shuffled_parts = []
+            for part in PARTS:
+                if part == "-Overdoze-":
+                    middle = part[1:-1]
+                    shuffled = "-" + ''.join(random.sample(middle, len(middle))) + "-"
+                else:
+                    shuffled = ''.join(random.sample(part, len(part)))
+                shuffled_parts.append(shuffled)
+
+            result = ' '.join(shuffled_parts)
+            log.append(result)
+            if result == TARGET:
+                with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+                    for line in log:
+                        f.write(line + "\n")
+                await ctx.send(f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```",file=discord.File(OUTPUT_FILE))
+                return
+            similarity = sum(result[j] == TARGET[j] for j in range(len(TARGET)))
+            if similarity > max_similarity:
+                max_similarity = similarity
+                closest_string = result
+                closest_index = i
+                target_parts = TARGET.split(' ')
+                result_parts = result.split(' ')
+                closest_match_counts = []
+                closest_group_lengths = []
+                for idx in range(3):
+                    target = target_parts[idx] if idx != 2 else target_parts[idx][1:-1]
+                    res = result_parts[idx] if idx != 2 else result_parts[idx][1:-1]
+                    match_count = sum(1 for a, b in zip(target, res) if a == b)
+                    closest_match_counts.append(match_count)
+                    closest_group_lengths.append(len(target))
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            for line in log:
+                f.write(line + "\n")
+        group_rates = [
+            f"{closest_match_counts[i]}/{closest_group_lengths[i]} "
+            for i in range(3)
+        ]
+        total_match = sum(closest_match_counts)
+        total_length = sum(closest_group_lengths)
+        total_mismatch = total_length - total_match
+        total_rate = total_match / total_length * 100
+        await ctx.send(f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n最も近かったのは{closest_index}回目の {closest_string} でした。\n```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```",file=discord.File(OUTPUT_FILE))
+
 @bot.event
 async def on_ready():
     await tree.sync(guild=MAIN_GUILD)
