@@ -118,7 +118,7 @@ async def s(ctx: commands.context):
 
 @bot.command()
 async def ieo(ctx: commands.context, n):
-    async with message.channel.typing():
+    async with ctx.channel.typing():
         n = int(n)
         if not ctx.author.id in admin_id:
             return
