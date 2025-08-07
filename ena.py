@@ -52,6 +52,8 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
         await interaction.response.send_message("試行回数は1回から30000回までで指定してください。", ephemeral=True)
         return
 
+    await interaction.response.defer()
+
     TARGET = "INFiNiTE ENERZY -Overdoze-"
     PARTS = ["INFiNiTE", "ENERZY", "-Overdoze-"]
     OUTPUT_FILE = "ieo_log.txt"
@@ -76,12 +78,12 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
             if write_log:
                 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                     f.write("\n".join(log))
-                await interaction.response.send_message(
+                await interaction.followup.send(
                     f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```",
                     file=discord.File(OUTPUT_FILE)
                 )
             else:
-                await interaction.response.send_message(
+                await interaction.followup.send(
                     f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```"
                 )
             return
@@ -108,14 +110,14 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
     if write_log:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write("\n".join(log))
-        await interaction.response.send_message(
+        await interaction.followup.send(
             f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n"
             f"最も近かったのは{closest_index}回目の {closest_string} でした。\n"
             f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```",
             file=discord.File(OUTPUT_FILE)
         )
     else:
-        await interaction.response.send_message(
+        await interaction.followup.send(
             f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n"
             f"最も近かったのは{closest_index}回目の {closest_string} でした。\n"
             f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```"
