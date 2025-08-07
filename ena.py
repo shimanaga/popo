@@ -96,6 +96,15 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
             closest_match_counts[1] = sum(a == b for a, b in zip(PARTS[1], parts_res[1]))
             closest_match_counts[2] = sum(a == b for a, b in zip(PARTS[2][1:-1], parts_res[2][1:-1]))
 
+    total_match = sum(closest_match_counts)
+    total_length = sum(closest_group_lengths)
+    total_rate = total_match / total_length * 100
+    total_mismatch = total_length - total_match
+    group_rates = [
+        f"{closest_match_counts[i]}/{closest_group_lengths[i]}"
+        for i in range(3)
+    ]
+
     if write_log:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write("\n".join(log))
