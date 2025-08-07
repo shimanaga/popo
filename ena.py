@@ -76,10 +76,14 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
             if write_log:
                 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                     f.write("\n".join(log))
-            await interaction.response.send_message(
-                f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```",
-                file=discord.File(OUTPUT_FILE) if write_log else None
-            )
+                await interaction.response.send_message(
+                    f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```",
+                    file=discord.File(OUTPUT_FILE)
+                )
+            else:
+                await interaction.response.send_message(
+                    f"{i}回目でINFiNiTE ENERZY -Overdoze-が出現しました！\n```一致数: 8/8 | 6/6 | 8/8\n一致率: 22/22 (100.0%, -0)```"
+                )
             return
 
         similarity = sum(result[j] == TARGET[j] for j in range(22))
@@ -95,19 +99,18 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
     if write_log:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write("\n".join(log))
-
-    group_rates = [f"{closest_match_counts[i]}/{closest_group_lengths[i]}" for i in range(3)]
-    total_match = sum(closest_match_counts)
-    total_length = sum(closest_group_lengths)
-    total_mismatch = total_length - total_match
-    total_rate = total_match / total_length * 100
-
-    await interaction.response.send_message(
-        f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n"
-        f"最も近かったのは{closest_index}回目の {closest_string} でした。\n"
-        f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```",
-        file=discord.File(OUTPUT_FILE) if write_log else None
-    )
+        await interaction.response.send_message(
+            f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n"
+            f"最も近かったのは{closest_index}回目の {closest_string} でした。\n"
+            f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```",
+            file=discord.File(OUTPUT_FILE)
+        )
+    else:
+        await interaction.response.send_message(
+            f"{n}回の試行中にINFiNiTE ENERZY -Overdoze-は出現しませんでした。\n"
+            f"最も近かったのは{closest_index}回目の {closest_string} でした。\n"
+            f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```"
+        )
 
 @bot.command()
 async def s(ctx: commands.Context):
