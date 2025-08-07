@@ -48,7 +48,7 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
 
-    if not (1 <= n <= 30000) and not (interaction.user.id in admin_id and n <= 500000):
+    if not (1 <= n <= 30000) and not (interaction.user.id in admin_id and n <= 10000000):
         await interaction.response.send_message("試行回数は1回から30000回までで指定してください。", ephemeral=True)
         return
 
