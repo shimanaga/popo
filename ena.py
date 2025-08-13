@@ -192,7 +192,7 @@ async def puki(interaction: discord.Interaction):
 
     max = s[max_start:max_end+1]
 
-    if max_len < 50:
+    if max_len < 100:
         await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n{'<:muscle_puku:1400271171093659658>'*(max_len//2)}",file=discord.File("result.txt"))
     else:
         await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n# <:muscle_puku:1400271171093659658> × {max_len//2}",file=discord.File("result.txt"))
