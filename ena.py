@@ -139,7 +139,7 @@ async def puki(interaction: discord.Interaction):
 
     p = 0.7
 
-    for _ in range(1, length):
+    for _ in range(1, l):
         prev = s[-1]
         if random.random() < p:
             next_char = "キ" if prev == "プ" else "プ"
