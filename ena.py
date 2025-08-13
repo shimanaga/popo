@@ -137,7 +137,7 @@ async def puki(interaction: discord.Interaction):
 
     s.append(random.choice(["プ", "キ"]))
 
-    p = 0.85
+    p = 0.88
 
     for _ in range(1, l):
         prev = s[-1]
