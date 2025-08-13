@@ -178,7 +178,7 @@ async def puki(interaction: discord.Interaction):
 
     max = s[max_start:max_end+1]
     
-    await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n```{max}```",file=discord.File("result.txt"))
+    await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n{":muscle_puku:"*(max//2)}",file=discord.File("result.txt"))
 
 @bot.command()
 async def s(ctx: commands.Context):
