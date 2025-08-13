@@ -133,7 +133,21 @@ async def puki(interaction: discord.Interaction):
     
     l = 10000
     choices = ["プ", "キ"]
-    s = "".join(random.choice(choices) for _ in range(l))
+    s = []
+
+    s.append(random.choice(["プ", "キ"]))
+
+    p = 0.7
+
+    for _ in range(1, length):
+        prev = s[-1]
+        if random.random() < p:
+            next_char = "キ" if prev == "プ" else "プ"
+        else:
+            next_char = prev
+        s.append(next_char)
+
+    s = "".join(s)
 
     max_len = 0
     max_start = 0
@@ -177,8 +191,11 @@ async def puki(interaction: discord.Interaction):
         f.write(s)
 
     max = s[max_start:max_end+1]
-    
-    await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n{'<:muscle_puku:1400271171093659658>'*(max_len//2)}",file=discord.File("result.txt"))
+
+    if max_len < 50:
+        await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n{'<:muscle_puku:1400271171093659658>'*(max_len//2)}",file=discord.File("result.txt"))
+    else:
+        await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n# <:muscle_puku:1400271171093659658> ×　{max_len//2}",file=discord.File("result.txt"))
 
 @bot.command()
 async def s(ctx: commands.Context):
