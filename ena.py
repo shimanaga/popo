@@ -123,6 +123,63 @@ async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False)
             f"```一致数: {'| '.join(group_rates)}\n一致率: {total_match}/{total_length} ({total_rate:.1f}%, -{total_mismatch})```"
         )
 
+@tree.command(name="puki", description="プキプキガチャを回します。")
+async def puki(interaction: discord.Interaction):
+    if interaction.channel_id not in (1400194814624141392, 1048878265168842792):
+        await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
+        return
+
+    await interaction.response.defer()
+    
+    l = 10000
+    choices = ["プ", "キ"]
+    s = "".join(random.choice(choices) for _ in range(l))
+
+    max_len = 0
+    max_start = 0
+    max_end = 0
+
+    current_start = None
+    expected_char = "プ"
+    current_len = 0
+
+    for i, ch in enumerate(s):
+        if current_len == 0:
+            if ch == "プ":
+                current_start = i
+                current_len = 1
+                expected_char = "キ"
+        else:
+            if ch == expected_char:
+                current_len += 1
+                expected_char = "プ" if expected_char == "キ" else "キ"
+            else:
+                if current_len >= 2 and s[i-1] == "キ":
+                    if current_len > max_len:
+                        max_len = current_len
+                        max_start = current_start
+                        max_end = i - 1
+                if ch == "プ":
+                    current_start = i
+                    current_len = 1
+                    expected_char = "キ"
+                else:
+                    current_len = 0
+                    expected_char = "プ"
+
+    if current_len >= 2 and s[-1] == "キ":
+        if current_len > max_len:
+            max_len = current_len
+            max_start = current_start
+            max_end = l - 1
+
+    with open("result.txt", "w", encoding="utf-8") as f:
+        f.write(s)
+
+    max = s[max_start:max_end+1]
+    
+    await interaction.followup.send(f"{max_len}文字のプキプキが完成しました！({max_start}~{max_end}文字目)\n```{max}```",file=discord.File("result.txt"))
+
 @bot.command()
 async def s(ctx: commands.Context):
     if ctx.author.id not in admin_id:
