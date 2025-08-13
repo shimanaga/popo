@@ -185,7 +185,7 @@ async def s(ctx: commands.Context):
     if ctx.author.id not in admin_id:
         await ctx.send("このコマンドの使用は制限されています。", ephemeral=True)
         return
-    await ctx.send("強制終了します。", ephemeral=True)
+    await ctx.send("強制終了します", ephemeral=True)
     await bot.close()
 
 @bot.event
