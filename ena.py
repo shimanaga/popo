@@ -19,22 +19,25 @@ async def gacha(interaction: discord.Interaction):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
 
+    Q = ["ベリーベリーベリーロングボブ", "ビッグジム"]
     XXR = ["ボブ", "ジム", "えな"]
     SSR = ["ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし", "ダイナマイトボディエナガ"]
-    SR = ["田中 オイ太郎", "歩きエナガ", "ヒトデマン", "メスガキ", "ムキムキエナガ", "プリン", "ずんちゃ", "お寿司（サーモン）", "高速黙りモード移行男"]
-    R = ["オフロスキー", "栗きんとん", "カニンジャ", "ラーメン", "ぐんぐんグルト", "強奪王ブンドルド", "立つドン", "デカハリル", "作品4", "ツャツャエナガ"]
+    SR = ["痣　少焼", "歩きエナガ", "ヒトデマン", "メスガキ", "ムキムキエナガ", "プリン", "ずんちゃ", "お寿司（サーモン）", "高速黙りモード移行男", "ドダイにしてみせるお姉さん", "横幅エナガ"]
+    R = ["オフロスキー", "栗きんとん", "カニンジャ", "ラーメン", "ぐんぐんグルト", "強奪王ブンドルド", "立つドン", "デカハリル", "作品4", "ツャツャエナガ", "沖ノ鳥島"]
     N = ["キウイマン", "舞う！！！！馬", "マイバチ（1本）", "たこ焼き", "ミ＝ゴス", "ポッピンクッキン ホイップケーキやさん", "縦連", "オタマトーン", "3ヶ月目のカレー", "パピコ", "お寿司（たまご）", "肩幅うさぎ", "ネギ", "15円玉", "雪降り、メソクソ", "イーロン・マスク", "アメリカセンダングサ","醤油", "Dutedimpianekepusaan-分散的絶望夢-", "判定線抱き枕"]
 
     result = ["## ガチャ結果"]
     for _ in range(10):
-        f = random.randint(0, 100)
+        f = random.randint(0, 999)
         if f == 0:
+            result.append(f"**[XXR] {random.choice(Q)}**")
+        elif f <= 9:
             result.append(f"**[XXR] {random.choice(XXR)}**")
-        elif f <= 5:
+        elif f <= 49:
             result.append(f"[SSR] {random.choice(SSR)}")
-        elif f <= 15:
+        elif f <= 149:
             result.append(f"[SR] {random.choice(SR)}")
-        elif f <= 40:
+        elif f <= 399:
             result.append(f"[R] {random.choice(R)}")
         else:
             result.append(f"[N] {random.choice(N)}")
