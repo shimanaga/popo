@@ -208,6 +208,13 @@ async def s(ctx: commands.Context):
     await ctx.send("強制終了します", ephemeral=True)
     await bot.close()
 
+@bot.command()
+async def filefunc(ctx: commands.Context):
+    if len(message.attachments) == 4 and message.attachments[0].filename == "image.png":
+        await ctx.send("不審なメッセージを検出しました。", ephemeral=True)
+    else:
+        await ctx.send(str(len(message.attachments)) +"/"+ message.attachments[0].filename, ephemeral=True)
+
 @bot.event
 async def on_ready():
     await tree.sync()
