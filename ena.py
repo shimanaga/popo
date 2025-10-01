@@ -210,10 +210,10 @@ async def s(ctx: commands.Context):
 
 @bot.command()
 async def filefunc(ctx: commands.Context):
-    if len(message.attachments) == 4 and message.attachments[0].filename == "image.png":
+    if len(ctx.message.attachments) == 4 and ctx.message.attachments[0].filename == "image.png":
         await ctx.send("不審なメッセージを検出しました。", ephemeral=True)
     else:
-        await ctx.send(str(len(message.attachments)) +"/"+ message.attachments[0].filename, ephemeral=True)
+        await ctx.send(str(len(ctx.message.attachments)) +"/"+ ctx.message.attachments[0].filename, ephemeral=True)
 
 @bot.event
 async def on_ready():
