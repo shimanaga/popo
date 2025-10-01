@@ -219,11 +219,16 @@ async def filefunc(ctx: commands.Context):
 async def on_message(message):
     if message.content != "filetest":
         return
+    print("c1")
+    await message.reply("c")
     if message.attachments:
+        print("c2")
         if len(message.attachments) == 4 and message.attachments[0].filename == "image.png":
+            print("c3")
             await message.reply("**Coo-coo!** suspicious images detected.\nPlease try sending the images in separate messages.\n-# This feature is under testing.", ephemeral=True)
             await message.delete()
         else:
+            print("c4")
             await message.reply(str(len.message.attachments) +"/"+ message.attachments[0].filename, ephemeral=True)
 
 @bot.event
