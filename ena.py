@@ -224,7 +224,7 @@ async def on_message(message):
             await message.reply("**Coo-coo!** suspicious images detected.\nPlease try sending the images in separate messages.\n-# This feature is under testing.", ephemeral=True)
             await message.delete()
         else:
-            await message.reply(str(len.message.attachments)) +"/"+ message.attachments[0].filename, ephemeral=True)
+            await message.reply(str(len.message.attachments) +"/"+ message.attachments[0].filename, ephemeral=True)
 
 @bot.event
 async def on_ready():
