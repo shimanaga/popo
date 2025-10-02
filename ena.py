@@ -8,10 +8,13 @@ import random
 
 TOKEN = os.environ.get("BOT_TOKEN")
 intents = discord.Intents.default()
+intents.message_content = True
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=intents)
 tree = bot.tree
 
 admin_id = [447551013763678208]
+q_id = [736041262288863314, 1146920779695542282, 325699632036446212, 743312946955812946, 748104554456940545, 935384717971312660, 830582346767400971, 165918545975181312, 451040362094526490, 847816792932220938, 506825535272386581, 316906181174099970, 595811416351703101, 871743426620706847, 720937043328368680, 834389536510443540, 937539245415997471, 256690534582714368, 341211236496572428, 893874919878836294, 969227021345492992, 344004546504425473, 596886848605913098, 955087114859589702, 740956031625986199, 467064272212590602, 690852174267416646, 784973409654276126, 982236550161125398, 461725672658698267, 557485522344214529, 708298047184044122, 703431721483370518, 400864007507935240, 848596266094559313, 237711240632336384, 733977065627320361]
+LOG_CHANNEL_ID = 1048878265168842792
 
 @tree.command(name="gacha", description="10連ガチャを回します。")
 async def gacha(interaction: discord.Interaction):
@@ -208,28 +211,20 @@ async def s(ctx: commands.Context):
     await ctx.send("強制終了します", ephemeral=True)
     await bot.close()
 
-@bot.command()
-async def filefunc(ctx: commands.Context):
-    if len(ctx.message.attachments) == 4 and ctx.message.attachments[0].filename == "image.png":
-        await ctx.send("不審なメッセージを検出しました。", ephemeral=True)
-    else:
-        await ctx.send(str(len(ctx.message.attachments)) +"/"+ ctx.message.attachments[0].filename, ephemeral=True)
-
 @bot.listen()
 async def on_message(message):
     if message.content != "filetest":
         return
     print("c1")
-    await message.reply("c")
     if message.attachments:
         print("c2")
         if len(message.attachments) == 4 and message.attachments[0].filename == "image.png":
             print("c3")
-            await message.reply("**Coo-coo!** suspicious images detected.\nPlease try sending the images in separate messages.\n-# This feature is under testing.", ephemeral=True)
+            await message.reply("**Coo-coo!** suspicious images detected.\nPlease try sending the images in separate messages.\n-# This feature is under testing.")
             await message.delete()
         else:
             print("c4")
-            await message.reply(str(len.message.attachments) +"/"+ message.attachments[0].filename, ephemeral=True)
+            await message.reply(str(len(message.attachments)) +"/"+ message.attachments[0].filename)
 
 @bot.event
 async def on_ready():
