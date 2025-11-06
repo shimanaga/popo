@@ -23,6 +23,7 @@ async def gacha(interaction: discord.Interaction):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
 
+    """
     Q = ["ベリーベリーベリーロングボブ", "ビッグジム"]
     XXR = ["ボブ", "ジム", "えな"]
     SSR = ["ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし", "ダイナマイトボディエナガ"]
@@ -45,6 +46,34 @@ async def gacha(interaction: discord.Interaction):
             result.append(f"[R] {random.choice(R)}")
         else:
             result.append(f"[N] {random.choice(N)}")
+
+    """
+
+    result = ["## ガチャ結果"]
+    for _ in range(10):
+        f = random.randint(0, 1000)
+        if f == 0:
+            result.append(f"**[E] ポッピンクッキン ベリーベリーベリーロングボブやさん**")
+        elif f <= 100:
+            result.append(f"[E] ポッピンクッキン くるくるたこやき")
+        elif f <= 200:
+            result.append(f"[E] ポッピンクッキン できたてパンやさん")
+        elif f <= 300:
+            result.append(f"[E] ポッピンクッキン ケーキのおうち")
+        elif f <= 400:
+            result.append(f"[E] ポッピンクッキン ハンバーガーやさん")
+        elif f <= 500:
+            result.append(f"[E] ポッピンクッキン つくろう！おべんとう")
+        elif f <= 600:
+            result.append(f"[E] ポッピンクッキン なりきりパティシエ")
+        elif f <= 700:
+            result.append(f"[E] ポッピンクッキン チョコフォンデュパーティー")
+        elif f <= 800:
+            result.append(f"[E] ポッピンクッキン 憧れのショコラティエ")
+        elif f <= 900:
+            result.append(f"[E] ポッピンクッキン たのしいおすしやさん")
+        else:
+            result.append(f"[E] ポッピンクッキン ホイップケーキやさん")
 
     await interaction.response.send_message("\n".join(result))
 
