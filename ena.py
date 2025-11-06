@@ -53,7 +53,7 @@ async def gacha(interaction: discord.Interaction):
     for _ in range(10):
         f = random.randint(0, 1000)
         if f == 0:
-            result.append(f"**[E] ポッピンクッキン ベリーベリーベリーロングボブやさん**")
+            result.append(f"**[E] ポッピンクッキン どでかいボブやさん**")
         elif f <= 100:
             result.append(f"[E] ポッピンクッキン くるくるたこやき")
         elif f <= 200:
@@ -67,7 +67,7 @@ async def gacha(interaction: discord.Interaction):
         elif f <= 600:
             result.append(f"[E] ポッピンクッキン なりきりパティシエ")
         elif f <= 700:
-            result.append(f"[E] ポッピンクッキン チョコフォンデュパーティー")
+            result.append(f"[E] ポッピンクッキン たいやき&たこやき")
         elif f <= 800:
             result.append(f"[E] ポッピンクッキン 憧れのショコラティエ")
         elif f <= 900:
