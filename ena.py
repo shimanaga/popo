@@ -103,7 +103,7 @@ async def omikuji(interaction: discord.Interaction):
     result.append("")
 
     n=10000
-    s=1.25
+    s=1.225
     weights = [1.0 / (k ** s) for k in range(1, n + 1)]
     bob = random.choices(range(1, n + 1), weights=weights, k=1)[0]
     result.append(f"ボブのデカさ: {bob}cm")
