@@ -103,9 +103,28 @@ async def omikuji(interaction: discord.Interaction):
     result.append("")
 
     n=10000
-    s=1.5
+    s=1.25
     weights = [1.0 / (k ** s) for k in range(1, n + 1)]
-    result.append(f"ベリーベリーベリーロングボブの体長: {random.choices(range(1, n + 1), weights=weights, k=1)[0]}cm")
+    bob = random.choices(range(1, n + 1), weights=weights, k=1)[0]
+    result.append(f"ボブのデカさ: {bob}cm")
+    if bob < 10:
+        result.append("**評価: マイクロボブ**")
+    elif bob < 20:
+        result.append("**評価: ミニボブ**")
+    elif bob < 30:
+        result.append("**評価: ボブ**")
+    elif bob < 50:
+        result.append("**評価: デカボブ**")
+    elif bob < 100:
+        result.append("**評価: ロングボブ**")
+    elif bob < 1000:
+        result.append("**評価: ベリーロングボブ**")
+    elif bob < 5000:
+        result.append("**評価: ベリーベリーロングボブ**")
+    elif bob < 9500:
+        result.append("**評価: ベリーベリーベリーロングボブ**")
+    else:
+        result.append("**評価: ベリーベリーベリーバカデカクッソロングボブ**")
     
     await interaction.response.send_message("\n".join(result))
 
