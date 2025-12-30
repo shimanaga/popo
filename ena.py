@@ -98,6 +98,8 @@ async def omikuji(interaction: discord.Interaction):
     
     result.append(f"ラッキーアイテム: {random.choice(I)}")
 
+    n=10000
+    s=1.2
     weights = [1.0 / (k ** s) for k in range(1, n + 1)]
     result.append(f"ベリーベリーベリーロングボブの体長: {random.choices(range(1, n + 1), weights=weights, k=1)[0]}cm")
     
