@@ -23,7 +23,6 @@ async def gacha(interaction: discord.Interaction):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
 
-    """
     Q = ["ベリーベリーベリーロングボブ", "ビッグジム"]
     XXR = ["ボブ", "ジム", "えな"]
     SSR = ["ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし", "ダイナマイトボディエナガ"]
@@ -75,6 +74,33 @@ async def gacha(interaction: discord.Interaction):
         else:
             result.append(f"[E] ポッピンクッキン ホイップケーキやさん")
 
+    """
+
+    await interaction.response.send_message("\n".join(result))
+
+@tree.command(name="omikuji", description="おみくじを引きます。")
+async def omikuji(interaction: discord.Interaction):
+    if interaction.channel_id not in (1400194814624141392, 1048878265168842792):
+        await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
+        return
+    
+    R = ["大吉", "ボブい", "良さげ", "Good", "良兆", "アツい", "手応えあり", "追い風", "吉兆", "恵みあり", "敵なし", "福の気配", "幸あり", "ウオオオオオオ", "デカ吉"]
+    CA = ["健康","学問","恋愛","金運","地力"]
+    I = ["キウイマン", "舞う！！！！馬", "マイバチ（1本）", "たこ焼き", "ミ＝ゴス", "縦連", "オタマトーン", "3ヶ月目のカレー", "パピコ", "お寿司（たまご）", "肩幅うさぎ", "ネギ", "15円玉", "雪降り、メソクソ", "イーロン・マスク", "アメリカセンダングサ","醤油", "Dutedimpianekepusaan-分散的絶望夢-", "判定線抱き枕", "オフロスキー", "栗きんとん", "カニンジャ", "ラーメン", "ぐんぐんグルト", "強奪王ブンドルド", "立つドン", "デカハリル", "作品4", "ツャツャエナガ", "沖ノ鳥島", "ぶち殺すゾウ", "デスおぶし", "おふとん", "藤田ことね［雨上がりのアイリス］", "ぽっぽちゃん", "くるぶし", "ダイナマイトボディエナガ", "歩きエナガ", "ヒトデマン", "メスガキ", "ムキムキエナガ", "プリン", "お寿司（サーモン）", "高速黙りモード移行男", "ドダイにしてみせるお姉さん", "横幅エナガ"]
+
+    result = ["## おみくじ"]
+
+    for category in CA:
+        result.append(f"{category}: {random.choice(R)}")
+
+    value = random.randint(0x000000, 0xFFFFFF)
+    result.append(f"ラッキーカラー: #{value:06x}")
+    
+    result.append(f"ラッキーアイテム: {random.choice(I)}")
+
+    weights = [1.0 / (k ** s) for k in range(1, n + 1)]
+    result.append(f"ベリーベリーベリーロングボブの体長: {random.choices(range(1, n + 1), weights=weights, k=1)[0]}cm")
+    
     await interaction.response.send_message("\n".join(result))
 
 @tree.command(name="ieo", description="インエナガチャを回します。")
