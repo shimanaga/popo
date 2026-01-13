@@ -124,7 +124,7 @@ async def omikuji(interaction: discord.Interaction):
     elif bob < 9500:
         result.append("**評価: ベリーベリーベリーロングボブ**")
     else:
-        result.append("**評価: ベリーベリーベリーバカデカクッソロングボブ**")
+        result.append("**評価: ベリーベリーベリーバカデカギガロングボブ**")
     
     await interaction.response.send_message("\n".join(result))
 
