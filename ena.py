@@ -40,7 +40,7 @@ async def handle_resolve_user(request: web.Request) -> web.Response:
     if not guild:
         return web.json_response({"error": "Guild not found"}, status=500)
     try:
-        members = await guild.search_members(username, limit=10)
+        members = await guild.query_members(query=username, limit=10)
         print(f"[resolve-user] query={username!r} results={[m.name for m in members]}")
         member = next((m for m in members if m.name.lower() == username), None)
         if not member:
