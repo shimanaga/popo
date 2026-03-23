@@ -20,11 +20,32 @@ LOG_GUILD_ID = 1400145776381919272
 LOG_CHANNEL_ID = 1423007458959429673
 
 # ============================================================
-# HTTP サーバー（bobtter 認証用 DM 送信エンドポイント）
-# POST /send-dm
+# HTTP サーバー（bobtter 認証用エンドポイント）
+# POST /resolve-user  {"username": "discordusername"}
+#   → {"discord_id": "123456789"}
+# POST /send-dm       {"discord_id": "123456789", "message": "..."}
 # Header: X-Bot-Secret: <BOT_SECRET>
-# Body:   {"discord_id": "123456789", "message": "認証コード: 123456"}
 # ============================================================
+
+async def handle_resolve_user(request: web.Request) -> web.Response:
+    if request.headers.get("X-Bot-Secret") != BOT_SECRET:
+        return web.Response(status=401, text="Unauthorized")
+    try:
+        data = await request.json()
+        username = data["username"].lower().lstrip("@")
+    except Exception:
+        return web.Response(status=400, text="Bad Request")
+    guild = bot.get_guild(LOG_GUILD_ID)
+    if not guild:
+        return web.json_response({"error": "Guild not found"}, status=500)
+    try:
+        members = await guild.search_members(username, limit=10)
+        member = next((m for m in members if m.name.lower() == username), None)
+        if not member:
+            return web.json_response({"error": "User not found"}, status=404)
+        return web.json_response({"discord_id": str(member.id)})
+    except Exception as e:
+        return web.json_response({"error": str(e)}, status=500)
 
 async def handle_send_dm(request: web.Request) -> web.Response:
     if request.headers.get("X-Bot-Secret") != BOT_SECRET:
@@ -49,6 +70,7 @@ async def handle_send_dm(request: web.Request) -> web.Response:
 async def start_web_server():
     port = int(os.environ.get("PORT", 8080))
     app = web.Application()
+    app.router.add_post("/resolve-user", handle_resolve_user)
     app.router.add_post("/send-dm", handle_send_dm)
     runner = web.AppRunner(app)
     await runner.setup()
