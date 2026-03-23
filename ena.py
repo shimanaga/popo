@@ -41,11 +41,13 @@ async def handle_resolve_user(request: web.Request) -> web.Response:
         return web.json_response({"error": "Guild not found"}, status=500)
     try:
         members = await guild.search_members(username, limit=10)
+        print(f"[resolve-user] query={username!r} results={[m.name for m in members]}")
         member = next((m for m in members if m.name.lower() == username), None)
         if not member:
             return web.json_response({"error": "User not found"}, status=404)
         return web.json_response({"discord_id": str(member.id), "display_name": member.display_name})
     except Exception as e:
+        print(f"[resolve-user] exception: {e}")
         return web.json_response({"error": str(e)}, status=500)
 
 async def handle_send_dm(request: web.Request) -> web.Response:
