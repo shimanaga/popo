@@ -43,7 +43,7 @@ async def handle_resolve_user(request: web.Request) -> web.Response:
         member = next((m for m in members if m.name.lower() == username), None)
         if not member:
             return web.json_response({"error": "User not found"}, status=404)
-        return web.json_response({"discord_id": str(member.id)})
+        return web.json_response({"discord_id": str(member.id), "display_name": member.display_name})
     except Exception as e:
         return web.json_response({"error": str(e)}, status=500)
 
