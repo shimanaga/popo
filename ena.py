@@ -3,10 +3,12 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.app_commands import describe
+from aiohttp import web
 import os
 import random
 
 TOKEN = os.environ.get("BOT_TOKEN")
+BOT_SECRET = os.environ.get("BOT_SECRET")  # Supabase Secrets の DISCORD_BOT_SECRET と同じ値
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=intents)
@@ -16,6 +18,45 @@ admin_id = [447551013763678208]
 q_id = [736041262288863314, 1146920779695542282, 325699632036446212, 743312946955812946, 748104554456940545, 935384717971312660, 830582346767400971, 165918545975181312, 451040362094526490, 847816792932220938, 506825535272386581, 316906181174099970, 595811416351703101, 871743426620706847, 720937043328368680, 834389536510443540, 937539245415997471, 256690534582714368, 341211236496572428, 893874919878836294, 969227021345492992, 344004546504425473, 596886848605913098, 955087114859589702, 740956031625986199, 467064272212590602, 690852174267416646, 784973409654276126, 982236550161125398, 461725672658698267, 557485522344214529, 708298047184044122, 703431721483370518, 400864007507935240, 848596266094559313, 237711240632336384, 733977065627320361]
 LOG_GUILD_ID = 1400145776381919272
 LOG_CHANNEL_ID = 1423007458959429673
+
+# ============================================================
+# HTTP サーバー（bobtter 認証用 DM 送信エンドポイント）
+# POST /send-dm
+# Header: X-Bot-Secret: <BOT_SECRET>
+# Body:   {"discord_id": "123456789", "message": "認証コード: 123456"}
+# ============================================================
+
+async def handle_send_dm(request: web.Request) -> web.Response:
+    if request.headers.get("X-Bot-Secret") != BOT_SECRET:
+        return web.Response(status=401, text="Unauthorized")
+    try:
+        data = await request.json()
+        user_id = int(data["discord_id"])
+        message = data["message"]
+    except Exception:
+        return web.Response(status=400, text="Bad Request")
+    try:
+        user = await bot.fetch_user(user_id)
+        await user.send(message)
+        return web.Response(status=200, text="OK")
+    except discord.NotFound:
+        return web.Response(status=404, text="User not found")
+    except discord.Forbidden:
+        return web.Response(status=403, text="Cannot send DM to this user")
+    except Exception as e:
+        return web.Response(status=500, text=str(e))
+
+async def start_web_server():
+    port = int(os.environ.get("PORT", 8080))
+    app = web.Application()
+    app.router.add_post("/send-dm", handle_send_dm)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    await web.TCPSite(runner, "0.0.0.0", port).start()
+
+@bot.event
+async def setup_hook():
+    await start_web_server()
 
 @tree.command(name="gacha", description="10連ガチャを回します。")
 async def gacha(interaction: discord.Interaction):
