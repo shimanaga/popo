@@ -11,6 +11,7 @@ TOKEN = os.environ.get("BOT_TOKEN")
 BOT_SECRET = os.environ.get("BOT_SECRET")  # Supabase Secrets の DISCORD_BOT_SECRET と同じ値
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), intents=intents)
 tree = bot.tree
 
