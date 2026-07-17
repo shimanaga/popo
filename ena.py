@@ -210,9 +210,9 @@ async def rrharil(interaction: discord.Interaction):
     result = first + first + third + fourth + fifth
     
     if result == "ルルハリル":
-        interaction.response.send_message(f"## {result}！\n揃いました <:RainBowb:1416442002534301808>")
+        await interaction.response.send_message(f"## {result}！\n揃いました <:RainBowb:1416442002534301808>")
     else:
-        interaction.response.send_message(f"## {result}！\n揃いませんでした <:sobfestival:1521716544084774993>")
+        await interaction.response.send_message(f"## {result}！\n揃いませんでした <:sobfestival:1521716544084774993>")
 
 @tree.command(name="ieo", description="インエナガチャを回します。")
 @describe(n="試行回数を指定してください。", write_log="ログファイルを出力するかどうか（true/false）")
