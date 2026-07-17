@@ -199,15 +199,17 @@ async def rrharil(interaction: discord.Interaction):
     if interaction.channel_id not in (1400194814624141392, 1048878265168842792):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
-    ra_row = "ラリルレロ"
+    fi_ra_row = ["ララ", "リリ", "ルル", "レレ", "ロロ", "デス"]
+    fo_ra_row = "ラリルレロ"
+    ra_row = "ラリルレロポ"
     ha_ba_pa_row = "ハヒフヘホバパ"
     
-    first = random.choice(ra_row)
+    first = random.choice(fi_ra_row)
     third = random.choice(ha_ba_pa_row)
-    fourth = random.choice(ra_row)
+    fourth = random.choice(fo_ra_row)
     fifth = random.choice(ra_row)
     
-    result = first + first + third + fourth + fifth
+    result = first + third + fourth + fifth
     
     if result == "ルルハリル":
         await interaction.response.send_message(f"## {result}！\n揃いました <:RainBowb:1416442002534301808>")
