@@ -194,6 +194,26 @@ async def omikuji(interaction: discord.Interaction):
     
     await interaction.response.send_message("\n".join(result))
 
+@tree.command(name="rrharil", description="ルルハガチャを回します。")
+async def rrharil(interaction: discord.Interaction):
+    if interaction.channel_id not in (1400194814624141392, 1048878265168842792):
+        await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
+        return
+    ra_row = "ラリルレロ"
+    ha_ba_pa_row = "ハヒフヘホバビブベボパピプペポ"
+    
+    first = random.choice(ra_row)
+    third = random.choice(ha_ba_pa_row)
+    fourth = random.choice(ra_row)
+    fifth = random.choice(ra_row)
+    
+    result = first + first + third + fourth + fifth
+    
+    if result == "ルルハリル":
+        interaction.response.send_message(f"## {result}！\n揃いました <:RainBowb:1416442002534301808>")
+    else:
+        interaction.response.send_message(f"## {result}！\n揃いませんでした <:sobfestival:1521716544084774993>")
+
 @tree.command(name="ieo", description="インエナガチャを回します。")
 @describe(n="試行回数を指定してください。", write_log="ログファイルを出力するかどうか（true/false）")
 async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False):
@@ -362,18 +382,14 @@ async def s(ctx: commands.Context):
 async def on_message(message):
     if message.content != "filetest":
         return
-    print("c1")
     if message.attachments:
-        print("c2")
         if len(message.attachments) == 4 and message.attachments[0].filename == "image.png":
-            print("c3")
             await message.reply("**Coo-coo!** suspicious images detected.\nPlease try sending the images in separate messages.\n-# This feature is under testing.")
             await message.delete()
             guild = bot.get_guild(LOG_GUILD_ID)
             channel = guild.get_channel(LOG_CHANNEL_ID)
             await channel.send("Deleted suspicious images.\n" + message.attachments[0].url)
         else:
-            print("c4")
             await message.reply(str(len(message.attachments)) +"/"+ message.attachments[0].filename)
 
 @bot.event
