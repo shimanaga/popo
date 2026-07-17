@@ -200,7 +200,7 @@ async def rrharil(interaction: discord.Interaction):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
     ra_row = "ラリルレロ"
-    ha_ba_pa_row = "ハヒフヘホバビブベボパピプペポ"
+    ha_ba_pa_row = "ハヒフヘホバパ"
     
     first = random.choice(ra_row)
     third = random.choice(ha_ba_pa_row)
