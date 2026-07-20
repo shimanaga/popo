@@ -213,6 +213,8 @@ async def rrharil(interaction: discord.Interaction):
     
     if result == "ルルハリル":
         await interaction.response.send_message(f"## {result}！\n揃いました <:RainBowb:1416442002534301808>")
+    elif result == "デスハリル":
+        await interaction.response.send_message(f"## {result}！\nあなたは死にました")
     else:
         await interaction.response.send_message(f"## {result}！\n揃いませんでした <:sobfestival:1521716544084774993>")
 
