@@ -223,7 +223,7 @@ async def rrharil(interaction: discord.Interaction):
 @describe(n="試行回数を指定してください。", write_log="ログファイルを出力するかどうか（true/false）")
 async def ieo(interaction: discord.Interaction, n: int, write_log: bool = False):
     global ieo_count
-    if interaction.channel_id not in (1400194814624141392, 1048878265168842792):
+    if interaction.channel_id not in (1400194814624141392, 1048878265168842792, 1423007458959429673):
         await interaction.response.send_message("このチャンネルでは使用できません。", ephemeral=True)
         return
 
